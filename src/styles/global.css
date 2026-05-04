@@ -13,6 +13,11 @@
   --border: #404652;
 }
 
+::selection {
+  background: var(--accent);
+  color: var(--bg);
+}
+
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 html, body {
@@ -180,6 +185,55 @@ a { color: inherit; }
 .cs-breadcrumb { font-size: 12px; color: var(--dim); margin-bottom: 14px; }
 .cs-back { color: var(--accent); cursor: pointer; }
 .cs-back:hover { text-decoration: underline; }
+
+.project-image-container {
+  position: relative;
+  width: 100%;
+  max-width: 600px;
+  margin-bottom: 20px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  transition: border-color 0.2s ease;
+}
+.project-image-container:hover {
+  border-color: var(--accent);
+}
+.project-image-container:hover .zoom-overlay {
+  opacity: 1;
+}
+
+.project-image {
+  width: 100%;
+  height: auto;
+  display: block;
+  cursor: pointer;
+}
+
+.zoom-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  cursor: pointer;
+}
+
+.zoom-btn {
+  padding: 8px 16px;
+  background: var(--accent);
+  color: var(--bg);
+  border: none;
+  font-family: 'JetBrains Mono', 'Courier New', monospace;
+  font-size: 12px;
+  cursor: pointer;
+  transition: background 0.1s;
+}
+.zoom-btn:hover {
+  background: var(--accent-dark);
+}
 
 .cs-title {
   font-size: 26px;
@@ -363,6 +417,8 @@ a { color: inherit; }
   .cs-title { font-size: 20px; }
   .cs-meta-row { flex-direction: column; gap: 8px; }
   .mv, .mv-green { display: block; margin: 2px 0 0; }
+
+  .project-image-container { max-width: 100%; }
 
   .skills-grid { grid-template-columns: 1fr; gap: 4px; }
 

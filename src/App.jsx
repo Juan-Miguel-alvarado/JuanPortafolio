@@ -1,5 +1,8 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import './styles/global.css';
+import TennisImg from './assets/Tennis.png';
+import LeagueImg from './assets/League.png';
+import MoviesImg from './assets/Movies.png';
 
 // ── Data ──────────────────────────────────────────────────
 
@@ -22,6 +25,7 @@ const PROJECTS = [
     href: 'https://github.com/Juan-Miguel-alvarado/Tennis-App',
     status: 'SHIPPED',
     fullDesc: 'Real-time match tracking and player statistics dashboard. Clean data visualization, live scoring, rankings, and full match history built with TypeScript and React.',
+    imgSrc: TennisImg,
   },
   {
     id: 'league',
@@ -34,6 +38,7 @@ const PROJECTS = [
     href: 'https://github.com/Juan-Miguel-alvarado/The-League-App',
     status: 'SHIPPED',
     fullDesc: 'Spanish La Liga tracker with live standings, fixture calendar, team profiles, and player stats. Consumes REST APIs to surface real-time data in a clean, fast UI.',
+    imgSrc: LeagueImg,
   },
   {
     id: 'movies',
@@ -46,6 +51,7 @@ const PROJECTS = [
     href: 'https://github.com/Juan-Miguel-alvarado/Movies-App',
     status: 'SHIPPED',
     fullDesc: 'Movie discovery app powered by The Movie Database API. Search, filter by genre, view ratings and trailers — all in a fast, minimal single-page app.',
+    imgSrc: MoviesImg,
   },
 ];
 
@@ -80,7 +86,7 @@ const ASCII_JUAN = `      ██╗██╗   ██╗ █████╗ █�
   ╚════╝  ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═══╝`;
 
 const GITHUB = 'https://github.com/Juan-Miguel-alvarado';
-const EMAIL  = 'juancaalvarado@gmail.com';
+const EMAIL  = 'juanchomigue2012@gmail.com'; // ! dont remove this gmail is used in the email command and about page, if you change it here also change it there.
 
 // ── Helpers ───────────────────────────────────────────────
 
@@ -424,7 +430,9 @@ function SkillsPage() {
 }
 
 function ProjectPage({ project, onBack }) {
+  const [zoomImg, setZoomImg] = useState(null);
   const title = project.file.replace(/\.(ts|js)$/, '').replace(/_/g, ' ');
+  
   return (
     <div>
       <div className="cs-breadcrumb">
@@ -433,6 +441,12 @@ function ProjectPage({ project, onBack }) {
       <div><span className="cmd-prompt">$</span> cat {project.file}</div>
 
       <div className="section-gap">
+        <div className="project-image-container" onClick={() => setZoomImg(project.imgSrc)}>
+          <img src={project.imgSrc} alt={title} className="project-image" />
+          <div className="zoom-overlay">
+            <button className="zoom-btn">▲ ZOOM ▲</button>
+          </div>
+        </div>
         <div className="cs-title">{title}</div>
         <div className="cs-tagline">{project.desc}</div>
         <div className="cs-meta-row">
@@ -459,6 +473,32 @@ function ProjectPage({ project, onBack }) {
           </a>
         </p>
       </div>
+
+      {zoomImg && (
+        <div
+          style={{
+            position: 'fixed',
+            inset: 0,
+            background: 'rgba(0, 0, 0, 0.9)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            zIndex: 1000,
+            cursor: 'pointer',
+          }}
+          onClick={() => setZoomImg(null)}
+        >
+          <img
+            src={zoomImg}
+            alt="Zoomed"
+            style={{
+              maxWidth: '90vw',
+              maxHeight: '90vh',
+              objectFit: 'contain',
+            }}
+          />
+        </div>
+      )}
     </div>
   );
 }
