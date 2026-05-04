@@ -70,7 +70,6 @@ const STACK = [
   { name: 'node',       pct: 65, status: 'installed', type: 'active' },
   { name: 'git',        pct: 75, status: 'installed', type: 'active' },
   { name: 'python',     pct: 35, status: 'learning',  type: 'learning' },
-  { name: 'linux',      pct: 50, status: 'learning',  type: 'learning' },
 ];
 
 const ASCII_JUAN = `      ██╗██╗   ██╗ █████╗ ███╗   ██╗
@@ -407,15 +406,17 @@ function SkillsPage() {
       <div className="section-gap">
         <div><span className="cmd-prompt">$</span> htop --filter=stack</div>
         <div className="stack-bars">
-          {STACK.map(s => (
-            <div key={s.name} className="stack-row">
-              <span className="stack-name">{s.name}</span>
-              <div className="stack-track">
-                <div className={`stack-fill ${s.type}`} style={{ width: `${s.pct}%` }} />
+          {STACK.map(s => {
+            const filled = Math.round(s.pct / 10);
+            const empty = 10 - filled;
+            const bar = '█'.repeat(filled) + '░'.repeat(empty);
+            return (
+              <div key={s.name} className="stack-row">
+                <span className="stack-name">{s.name}</span>
+                <span className={`stack-bar ${s.type}`}>{bar}</span>
               </div>
-              <span className={`stack-status ${s.type}`}>{s.status}</span>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </div>
