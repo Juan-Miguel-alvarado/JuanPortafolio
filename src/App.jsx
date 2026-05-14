@@ -1,8 +1,9 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import './styles/global.css';
-import TennisImg from './assets/Tennis.png';
-import LeagueImg from './assets/League.png';
-import MoviesImg from './assets/Movies.png';
+import TennisImg  from './assets/tennis.png';
+import LeagueImg  from './assets/liague.png';
+import MoviesImg  from './assets/movies.png';
+import WeatherImg from './assets/weather.png';
 
 // ── Data ──────────────────────────────────────────────────
 
@@ -15,14 +16,27 @@ const PAGES = [
 
 const PROJECTS = [
   {
+    id: 'weather',
+    file: 'HOW-S-THE-WEATHER.ts',
+    size: '5.1kb',
+    date: '2026-05',
+    desc: 'Weather analytics dashboard · React + TypeScript · charts · light/dark mode',
+    role: 'Solo -- TypeScript, React, Charts',
+    tags: ['TypeScript', 'React', 'Charts', 'API'],
+    href: 'https://github.com/Juan-Miguel-alvarado/How-s-the-Weather',
+    status: 'SHIPPED',
+    fullDesc: 'Weather analytics dashboard built with React and TypeScript. Features live weather data, interactive charts, location search, and full light/dark mode support.',
+    imgSrc: WeatherImg,
+  },
+  {
     id: 'tennis',
-    file: 'TENNIS_APP.ts',
+    file: 'TENNIS_ANALYTICS.ts',
     size: '4.2kb',
     date: '2026-05',
     desc: 'Match tracker & player stats dashboard',
     role: 'Solo -- TypeScript, React, Data Viz',
     tags: ['TypeScript', 'React', 'Data'],
-    href: 'https://github.com/Juan-Miguel-alvarado/Tennis-App',
+    href: 'https://github.com/Juan-Miguel-alvarado/Tennis-Analytics',
     status: 'SHIPPED',
     fullDesc: 'Real-time match tracking and player statistics dashboard. Clean data visualization, live scoring, rankings, and full match history built with TypeScript and React.',
     imgSrc: TennisImg,
@@ -35,20 +49,20 @@ const PROJECTS = [
     desc: 'Live Spanish football league stats & standings',
     role: 'Solo -- JavaScript, REST API',
     tags: ['JavaScript', 'REST API', 'Sports'],
-    href: 'https://github.com/Juan-Miguel-alvarado/The-League-App',
+    href: 'https://github.com/Juan-Miguel-alvarado/The-League',
     status: 'SHIPPED',
     fullDesc: 'Spanish La Liga tracker with live standings, fixture calendar, team profiles, and player stats. Consumes REST APIs to surface real-time data in a clean, fast UI.',
     imgSrc: LeagueImg,
   },
   {
     id: 'movies',
-    file: 'MOVIES_APP.js',
+    file: 'MBV_MOVIES.js',
     size: '2.9kb',
     date: '2024-08',
     desc: 'TMDB-powered movie discovery & search',
     role: 'Solo -- JavaScript, TMDB API',
     tags: ['JavaScript', 'TMDB', 'UI'],
-    href: 'https://github.com/Juan-Miguel-alvarado/Movies-App',
+    href: 'https://github.com/Juan-Miguel-alvarado/MBV-Movies',
     status: 'SHIPPED',
     fullDesc: 'Movie discovery app powered by The Movie Database API. Search, filter by genre, view ratings and trailers — all in a fast, minimal single-page app.',
     imgSrc: MoviesImg,
@@ -62,11 +76,12 @@ const BOOT_LINES = [
   { text: 'Loading neovim.config                [OK]', delay: 300, cls: 'ok' },
   { text: 'Loading hyprland.conf                [OK]', delay: 400, cls: 'ok' },
   { text: 'Loading catppuccin.theme             [OK]', delay: 480, cls: 'ok' },
-  { text: 'Mounting /projects/tennis_app        [SHIPPED]', delay: 560, cls: 'ok' },
-  { text: 'Mounting /projects/league_app        [SHIPPED]', delay: 640, cls: 'ok' },
-  { text: 'Mounting /projects/movies_app        [SHIPPED]', delay: 700, cls: 'ok' },
-  { text: 'Checking available_for_work          [TRUE]', delay: 780, cls: 'ok' },
-  { text: 'READY.', delay: 940, final: true },
+  { text: 'Mounting /projects/how-s-the-weather   [SHIPPED]', delay: 560, cls: 'ok' },
+  { text: 'Mounting /projects/tennis_app        [SHIPPED]', delay: 630, cls: 'ok' },
+  { text: 'Mounting /projects/league_app        [SHIPPED]', delay: 700, cls: 'ok' },
+  { text: 'Mounting /projects/movies_app        [SHIPPED]', delay: 760, cls: 'ok' },
+  { text: 'Checking available_for_work          [TRUE]', delay: 840, cls: 'ok' },
+  { text: 'READY.', delay: 1000, final: true },
 ];
 
 const STACK = [
@@ -162,14 +177,15 @@ export default function App() {
     setCmdValue('');
 
     const map = {
-      help:   () => 'commands: home · work · about · skills · tennis · league · movies · github · email · clear',
-      home:   () => { goToPage(0); return null; },
-      work:   () => { goToPage(1); return null; },
-      about:  () => { goToPage(2); return null; },
-      skills: () => { goToPage(3); return null; },
-      tennis: () => { openProject('tennis'); return null; },
-      league: () => { openProject('league'); return null; },
-      movies: () => { openProject('movies'); return null; },
+      help:    () => 'commands: home · work · about · skills · weather · tennis · league · movies · github · email · clear',
+      home:    () => { goToPage(0); return null; },
+      work:    () => { goToPage(1); return null; },
+      about:   () => { goToPage(2); return null; },
+      skills:  () => { goToPage(3); return null; },
+      weather: () => { openProject('weather'); return null; },
+      tennis:  () => { openProject('tennis'); return null; },
+      league:  () => { openProject('league'); return null; },
+      movies:  () => { openProject('movies'); return null; },
       github: () => { window.open(GITHUB, '_blank'); return 'opening github...'; },
       email:  () => { navigator.clipboard?.writeText(EMAIL); return `${EMAIL} -- copied.`; },
       clear:  () => { setCmdResponse(''); return null; },
